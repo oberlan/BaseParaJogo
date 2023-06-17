@@ -1,4 +1,4 @@
-#Exemplo 4: Carrega e desenha uma imagem
+#Exemplo 5: Executa som
 
 from BaseParaJogo import *
 
@@ -10,6 +10,9 @@ ICONE = "Recursos/Imagens/python-logo.png"
 def main():
     criaJanela(LARGURAJANELA, ALTURAJANELA, "Quarto Exemplo", CORFUNDOJANELA, ICONE)
     imagem = carregaFigura("Recursos/Imagens/python-logo.png")
+    musica = carregaMusica("Recursos/Sons/intro.wav")
+    som = carregaSom("Recursos/Sons/comeupastilha.wav")
+    iniciaMusica(musica)
     xImagem = 0
     yImagem = 300
     while True:
@@ -24,12 +27,15 @@ def main():
         #Se sim, atualiza a posição do retângulo
         if teclaPressionada(K_UP):
             yImagem -= 10
+            tocaSom(som)
         elif teclaPressionada(K_DOWN):
             yImagem += 10
         elif teclaPressionada(K_LEFT):
             xImagem -= 10
         elif teclaPressionada(K_RIGHT):
             xImagem += 10
+        elif teclaPressionada(K_p):
+            paraMusica()
 
         #Desenha imagem
         desenhaFigura(imagem, xImagem, yImagem)
