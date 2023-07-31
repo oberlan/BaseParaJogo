@@ -8,7 +8,7 @@ ALTURAJANELA = 600
 ICONE = "Recursos/Imagens/python-logo.png"
 
 def main():
-    criaJanela(LARGURAJANELA, ALTURAJANELA, "Quarto Exemplo", CORFUNDOJANELA, ICONE)
+    criaJanela(LARGURAJANELA, ALTURAJANELA, "Quinto Exemplo", CORFUNDOJANELA, ICONE)
     imagem = carregaFigura("Recursos/Imagens/python-logo.png")
     musica = carregaMusica("Recursos/Sons/intro.wav")
     som = carregaSom("Recursos/Sons/comeupastilha.wav")

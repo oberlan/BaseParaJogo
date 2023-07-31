@@ -92,13 +92,13 @@ def carregaFigura(nomeArquivo: str):
     return __numFiguraCarregada
 
 
-def desenhaFigura(numFigura: int, x: int, y: int):
+def desenhaFigura(numFigura: int, x: int, y: int) -> None:
     if numFigura <= 0 or numFigura > __numFiguraCarregada:
         print("ERRO - Número da figura inválido!")
         return
     __tela.blit(__listaFiguras[numFigura - 1], (x, y))
 
-def teclaPressionada(tecla):
+def teclaPressionada(tecla: int) -> bool:
     return pygame.key.get_pressed()[tecla]
 
 
