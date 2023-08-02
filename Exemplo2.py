@@ -1,4 +1,4 @@
-#Exemplo 2: Desenha um retângulo na janela e permi movimentá-lo usando as setinhas do teclado
+#Exemplo 2: Desenha um retângulo na janela e permite movimentá-lo usando as setinhas do teclado
 
 from BaseParaJogo import *
 
@@ -11,14 +11,14 @@ def main():
     xRetangulo = 0
     yRetangulo = 300
     while True:
-        #Verifica se a tecla ESC foi precionada
+        #Verifica se a tecla ESC foi pressionada
         if teclaPressionada(K_ESCAPE):
             break
 
         #Limpa a janela
         limpaTela()
 
-        #Verifica se uma das teclas foi precionada
+        #Verifica se uma das teclas foi pressionada
         #Se sim, atualiza a posição do retângulo
         if teclaPressionada(K_UP):
             yRetangulo -= 10

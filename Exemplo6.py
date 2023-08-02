@@ -30,7 +30,7 @@ def main():
         #Limpa a janela
         limpaTela()
 
-        #Verifica se uma das teclas foi precionada
+        #Verifica se uma das teclas foi pressionada
         #Se sim, atualiza a posição do retângulo
         if teclaPressionada(K_UP):
             yImagem -= 5

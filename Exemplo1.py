@@ -6,7 +6,7 @@ def main():
     criaJanela(930, 600, "Primeiro Exemplo", (255, 255, 255))
 
     while True:
-        #Verifica se a tecla ESC foi precionada
+        #Verifica se a tecla ESC foi pressionada
         if teclaPressionada(K_ESCAPE):
             break
 

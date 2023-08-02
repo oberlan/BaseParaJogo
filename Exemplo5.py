@@ -16,14 +16,14 @@ def main():
     xImagem = 0
     yImagem = 300
     while True:
-        #Verifica se a tecla ESC foi precionada
+        #Verifica se a tecla ESC foi pressionada
         if teclaPressionada(K_ESCAPE):
             break
 
         #Limpa a janela
         limpaTela()
 
-        #Verifica se uma das teclas foi precionada
+        #Verifica se uma das teclas foi pressionada
         #Se sim, atualiza a posição do retângulo
         if teclaPressionada(K_UP):
             yImagem -= 10

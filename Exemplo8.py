@@ -1,4 +1,4 @@
-#Exemplo 8: Exemplo de animação
+#Exemplo 8: Exemplo de jogo
 
 from BaseParaJogo import *
 
@@ -77,7 +77,7 @@ def main():
         #Limpa a janela
         limpaTela()
 
-        #Verifica se uma das teclas foi precionada
+        #Verifica se uma das teclas foi pressionada
         #Se sim, atualiza a posição do retângulo
         if teclaPressionada(K_UP):
             direcao = CIMA
