@@ -15,7 +15,7 @@ ESQUERDA = 3
 DIREITA = 4
 
 def main():
-    criaJanela(LARGURAJANELA, ALTURAJANELA, "Sexto Exemplo", CORFUNDOJANELA, ICONE)
+    criaJanela(LARGURAJANELA, ALTURAJANELA, "Setimo Exemplo", CORFUNDOJANELA, ICONE)
     numImagensAsteroides = 16
     imagemAsteroides = []
     
