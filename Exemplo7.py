@@ -1,4 +1,4 @@
-#Exemplo 6: Exemplo de animação
+#Exemplo 7: Exemplo de animação
 
 from BaseParaJogo import *
 
@@ -7,6 +7,12 @@ LARGURAJANELA = 930
 ALTURAJANELA = 600
 FPS = 60
 ICONE = "Recursos/Imagens/python-logo.png"
+#Direção do movimento
+PARADO = 0
+CIMA = 1
+BAIXO = 2
+ESQUERDA = 3
+DIREITA = 4
 
 def main():
     criaJanela(LARGURAJANELA, ALTURAJANELA, "Sexto Exemplo", CORFUNDOJANELA, ICONE)
@@ -18,11 +24,10 @@ def main():
 
     idAsteroide = 0
     asteroideSpeed = 0.25
-    frame = 0
     xImagem = 0
     yImagem = 300
-    while True:
-        frame = (frame + 1) % FPS       
+    direcao = PARADO
+    while True:   
         
         if teclaPressionada(K_ESCAPE):
             break
@@ -33,13 +38,25 @@ def main():
         #Verifica se uma das teclas foi precionada
         #Se sim, atualiza a posição do retângulo
         if teclaPressionada(K_UP):
-            yImagem -= 5
+            direcao = CIMA
         elif teclaPressionada(K_DOWN):
-            yImagem += 5
+            direcao = BAIXO
         elif teclaPressionada(K_LEFT):
-            xImagem -= 5
+            direcao = ESQUERDA
         elif teclaPressionada(K_RIGHT):
+            direcao = DIREITA
+
+        if direcao == CIMA:
+            yImagem -= 5
+        elif direcao == BAIXO:
+            yImagem += 5
+        elif direcao == ESQUERDA:
+            xImagem -= 5
+        elif direcao == DIREITA:
             xImagem += 5
+
+        if xImagem <= 0 or xImagem >= LARGURAJANELA - 75 or yImagem <= 0 or yImagem >= ALTURAJANELA - 75:
+            direcao = PARADO
 
         #Desenha a animação do asteroide
         idAsteroide += asteroideSpeed

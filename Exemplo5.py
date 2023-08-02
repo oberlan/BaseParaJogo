@@ -9,7 +9,7 @@ ICONE = "Recursos/Imagens/python-logo.png"
 
 def main():
     criaJanela(LARGURAJANELA, ALTURAJANELA, "Quinto Exemplo", CORFUNDOJANELA, ICONE)
-    imagem = carregaFigura("Recursos/Imagens/python-logo.png")
+    imagem = carregaFigura("Recursos/Imagens/python-logo.png", 1.5)
     musica = carregaMusica("Recursos/Sons/intro.wav")
     som = carregaSom("Recursos/Sons/comeupastilha.wav")
     iniciaMusica(musica)
