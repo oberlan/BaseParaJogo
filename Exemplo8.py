@@ -1,4 +1,4 @@
-#Exemplo 8: Exemplo de animação
+#Exemplo 8: Exemplo de animação 
 
 from BaseParaJogo import *
 
@@ -45,29 +45,29 @@ def desenhaMapa(bloco1, bloco2, fundo, moeda):
 def main():
     criaJanela(LARGURAJANELA, ALTURAJANELA, "Oitavo Exemplo", CORFUNDOJANELA, ICONE)
 
-    bloco1 = carregaFigura("Recursos/Imagens/Exemplo8/bloco1.png", (32, 32))
-    bloco2 = carregaFigura("Recursos/Imagens/Exemplo8/bloco2.png", (32, 32))
-    fundo = carregaFigura("Recursos/Imagens/Exemplo8/fundo.png", (32, 32))
-    moeda = carregaFigura("Recursos/Imagens/Exemplo8/moeda.png", (32, 32))
+    bloco1 = carregaFigura("Recursos/Imagens/bloco1.png", (32, 32))
+    bloco2 = carregaFigura("Recursos/Imagens/bloco2.png", (32, 32))
+    fundo = carregaFigura("Recursos/Imagens/fundo.png", (32, 32))
+    moeda = carregaFigura("Recursos/Imagens/moeda.png", (32, 32))
 
-    jogador_baixo = [carregaFigura("Recursos/Imagens/Exemplo8/jogador_baixo1.png", (32, 32)),
-                     carregaFigura("Recursos/Imagens/Exemplo8/jogador_baixo2.png", (32, 32)),
-                     carregaFigura("Recursos/Imagens/Exemplo8/jogador_baixo3.png", (32, 32))]
-    jogador_cima = [carregaFigura("Recursos/Imagens/Exemplo8/jogador_cima1.png", (32, 32)),
-                     carregaFigura("Recursos/Imagens/Exemplo8/jogador_cima2.png", (32, 32)),
-                     carregaFigura("Recursos/Imagens/Exemplo8/jogador_cima3.png", (32, 32))]
-    jogador_esquerda = [carregaFigura("Recursos/Imagens/Exemplo8/jogador_esquerda1.png", (32, 32)),
-                     carregaFigura("Recursos/Imagens/Exemplo8/jogador_esquerda2.png", (32, 32)),
-                     carregaFigura("Recursos/Imagens/Exemplo8/jogador_esquerda3.png", (32, 32))]
-    jogador_direita = [carregaFigura("Recursos/Imagens/Exemplo8/jogador_direita1.png", (32, 32)),
-                     carregaFigura("Recursos/Imagens/Exemplo8/jogador_direita2.png", (32, 32)),
-                     carregaFigura("Recursos/Imagens/Exemplo8/jogador_direita3.png", (32, 32))]
+    jogador_baixo = [carregaFigura("Recursos/Imagens/jogador_baixo1.png", (32, 32)),
+                     carregaFigura("Recursos/Imagens/jogador_baixo2.png", (32, 32)),
+                     carregaFigura("Recursos/Imagens/jogador_baixo3.png", (32, 32))]
+    jogador_cima = [carregaFigura("Recursos/Imagens/jogador_cima1.png", (32, 32)),
+                     carregaFigura("Recursos/Imagens/jogador_cima2.png", (32, 32)),
+                     carregaFigura("Recursos/Imagens/jogador_cima3.png", (32, 32))]
+    jogador_esquerda = [carregaFigura("Recursos/Imagens/jogador_esquerda1.png", (32, 32)),
+                     carregaFigura("Recursos/Imagens/jogador_esquerda2.png", (32, 32)),
+                     carregaFigura("Recursos/Imagens/jogador_esquerda3.png", (32, 32))]
+    jogador_direita = [carregaFigura("Recursos/Imagens/jogador_direita1.png", (32, 32)),
+                     carregaFigura("Recursos/Imagens/jogador_direita2.png", (32, 32)),
+                     carregaFigura("Recursos/Imagens/jogador_direita3.png", (32, 32))]
     imagemJogador = jogador_baixo
     frameJogador = 0
     direcao = PARADO
     yJogador = 122
     xJogador = 320
-    velocidadeAnimacaoJogador = 0.1
+    velocidadeAnimacaoJogador = 0.2
     moedas = 0
     while True:      
         
@@ -79,6 +79,7 @@ def main():
 
         #Verifica se uma das teclas foi precionada
         #Se sim, atualiza a posição do retângulo
+        caminhando = True
         if teclaPressionada(K_UP):
             direcao = CIMA
         elif teclaPressionada(K_DOWN):
@@ -87,6 +88,8 @@ def main():
             direcao = ESQUERDA
         elif teclaPressionada(K_RIGHT):
             direcao = DIREITA
+        else:
+            caminhando = False
 
         if direcao == CIMA:
             yJogador -= 2
@@ -106,19 +109,13 @@ def main():
         desenhaMapa(bloco1, bloco2, fundo, moeda)
 
         #Desenha o jogador
-        frameJogador += velocidadeAnimacaoJogador
-        if frameJogador >= 3:
-            frameJogador = 0
-        desenhaFigura(imagemJogador[int(frameJogador)], xJogador, yJogador)
-
-        #Verifica se a posição possui moeda
-        l = (yJogador - DESLOCAMENTO_BAIXO) // 32
-        c = (xJogador - DESLOCAMENTO_ESQ) // 32
-        print(l, c)
-        if 0 <= l < 10 and 0 <= c < 10:
-            if MAPA[l][c] == 3:
-                MAPA[l][c] = 0
-                moedas += 1
+        if caminhando:
+            frameJogador += velocidadeAnimacaoJogador
+            if frameJogador >= 3:
+                frameJogador = 0
+            desenhaFigura(imagemJogador[int(frameJogador)], xJogador, yJogador)
+        else:
+            desenhaFigura(imagemJogador[0], xJogador, yJogador)
 
         #Desenha pontuação
         desenhaTexto(f"Pontos: {moedas:2d}", 400, 50, 15, (0, 0, 0), "Recursos/Fontes/FiraCode-Regular.ttf")

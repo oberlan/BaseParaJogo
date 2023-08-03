@@ -3,9 +3,8 @@
 from BaseParaJogo import *
 
 CORFUNDOJANELA = (255, 255, 255)
-LARGURAJANELA = 930
-ALTURAJANELA = 600
-FPS = 60
+LARGURAJANELA = 300
+ALTURAJANELA = 300
 ICONE = "Recursos/Imagens/python-logo.png"
 #Direção do movimento
 PARADO = 0
@@ -14,18 +13,27 @@ BAIXO = 2
 ESQUERDA = 3
 DIREITA = 4
 
+
 def main():
     criaJanela(LARGURAJANELA, ALTURAJANELA, "Setimo Exemplo", CORFUNDOJANELA, ICONE)
-    numImagensAsteroides = 16
-    imagemAsteroides = []
-    
-    for i in range(numImagensAsteroides):
-        imagemAsteroides += [carregaFigura(f"Recursos/Imagens/Asteroides/{i+1}.png", (100, 100))]
+    jogador_baixo = [carregaFigura("Recursos/Imagens/jogador_baixo1.png", (32, 32)),
+                     carregaFigura("Recursos/Imagens/jogador_baixo2.png", (32, 32)),
+                     carregaFigura("Recursos/Imagens/jogador_baixo3.png", (32, 32))]
+    jogador_cima = [carregaFigura("Recursos/Imagens/jogador_cima1.png", (32, 32)),
+                    carregaFigura("Recursos/Imagens/jogador_cima2.png", (32, 32)),
+                    carregaFigura("Recursos/Imagens/jogador_cima3.png", (32, 32))]
+    jogador_esquerda = [carregaFigura("Recursos/Imagens/jogador_esquerda1.png", (32, 32)),
+                        carregaFigura("Recursos/Imagens/jogador_esquerda2.png", (32, 32)),
+                        carregaFigura("Recursos/Imagens/jogador_esquerda3.png", (32, 32))]
+    jogador_direita = [carregaFigura("Recursos/Imagens/jogador_direita1.png", (32, 32)),
+                       carregaFigura("Recursos/Imagens/jogador_direita2.png", (32, 32)),
+                       carregaFigura("Recursos/Imagens/jogador_direita3.png", (32, 32))]
+    imagemJogador = jogador_baixo
+    frameJogador = 0
 
-    idAsteroide = 0
-    asteroideSpeed = 0.25
-    xImagem = 0
-    yImagem = 300
+    yJogador = ALTURAJANELA // 2 - 16
+    xJogador = LARGURAJANELA //2 - 16
+    velocidadeAnimacaoJogador = 0.2
     direcao = PARADO
     while True:   
         
@@ -36,33 +44,40 @@ def main():
         limpaTela()
 
         #Verifica se uma das teclas foi precionada
-        #Se sim, atualiza a posição do retângulo
+        #Se sim, atualiza a posição do 
         if teclaPressionada(K_UP):
             direcao = CIMA
+            imagemJogador = jogador_cima
         elif teclaPressionada(K_DOWN):
             direcao = BAIXO
+            imagemJogador = jogador_baixo
         elif teclaPressionada(K_LEFT):
             direcao = ESQUERDA
+            imagemJogador = jogador_esquerda
         elif teclaPressionada(K_RIGHT):
             direcao = DIREITA
-
+            imagemJogador = jogador_direita
+            
+        #Atualiza a posição do jogador
         if direcao == CIMA:
-            yImagem -= 5
+            yJogador -= 2
         elif direcao == BAIXO:
-            yImagem += 5
+            yJogador += 2
         elif direcao == ESQUERDA:
-            xImagem -= 5
+            xJogador -= 2
         elif direcao == DIREITA:
-            xImagem += 5
-
-        if xImagem <= 0 or xImagem >= LARGURAJANELA - 75 or yImagem <= 0 or yImagem >= ALTURAJANELA - 75:
+            xJogador += 2
+        else:
             direcao = PARADO
 
-        #Desenha a animação do asteroide
-        idAsteroide += asteroideSpeed
-        if idAsteroide >= len(imagemAsteroides):
-            idAsteroide = 0
-        desenhaFigura(imagemAsteroides[int(idAsteroide)], xImagem, yImagem)
+        #Desenha o jogador
+        if direcao != PARADO:
+            frameJogador += velocidadeAnimacaoJogador
+            if frameJogador >= 3:
+                frameJogador = 0
+            desenhaFigura(imagemJogador[int(frameJogador)], xJogador, yJogador)
+        else:
+            desenhaFigura(imagemJogador[0], xJogador, yJogador)
 
         #Atualiza os objetos na janela
         atualizaTelaJogo()
