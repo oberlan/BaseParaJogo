@@ -53,8 +53,8 @@ def tempoExecutandoJogo() -> int:
 
 def atualizaTelaJogo():
     global __clock
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
             finalizaJogo()
 
     pygame.display.update()
@@ -62,7 +62,7 @@ def atualizaTelaJogo():
 
 def limpaTela():
     atualizaCorFundo(__corFundo)
-    
+   
 def atualizaCorFundo(cor: pygame.Color):
     global __corFundo
     __corFundo = cor
@@ -112,6 +112,13 @@ def desenhaFigura(numFigura: int, x: int, y: int) -> None:
 def teclaPressionada(tecla: int) -> bool:
     return pygame.key.get_pressed()[tecla]
 
+def teclaLiberada(tecla):
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            finalizaJogo()
+        if evento.type == KEYUP and evento.key == tecla:
+            return True
+    return False
 
 def carregaSom(nomeArquivo: str):
     global __numSomCarregado
