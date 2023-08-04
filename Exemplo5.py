@@ -9,9 +9,9 @@ ICONE = "Recursos/Imagens/python-logo.png"
 
 def main():
     criaJanela(LARGURAJANELA, ALTURAJANELA, "Quinto Exemplo", CORFUNDOJANELA, ICONE)
-    imagem = carregaFigura("Recursos/Imagens/python-logo.png", 1.5)
-    musica = carregaMusica("Recursos/Sons/intro.wav")
-    som = carregaSom("Recursos/Sons/comeupastilha.wav")
+    imagem = carregaFigura("Recursos/Imagens/nave.png")
+    musica = carregaMusica("Recursos/Sons/magic_space.mp3")
+    som = carregaSom("Recursos/Sons/laser.ogg")
     iniciaMusica(musica)
     xImagem = 0
     yImagem = 300
@@ -24,16 +24,16 @@ def main():
         limpaTela()
 
         #Verifica se uma das teclas foi precionada
-        #Se sim, atualiza a posição do retângulo
+        #Se sim, atualiza a posição da figura
         if teclaPressionada(K_UP):
-            yImagem -= 10
+            yImagem -= 5
             tocaSom(som)
         elif teclaPressionada(K_DOWN):
-            yImagem += 10
+            yImagem += 5
         elif teclaPressionada(K_LEFT):
-            xImagem -= 10
+            xImagem -= 5
         elif teclaPressionada(K_RIGHT):
-            xImagem += 10
+            xImagem += 5
         elif teclaPressionada(K_p):
             paraMusica()
 

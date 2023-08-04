@@ -1,4 +1,4 @@
-#Exemplo 2: Desenha um texto na tela
+#Exemplo 3: Desenha um texto na tela
 
 from BaseParaJogo import *
 
