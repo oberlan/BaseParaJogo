@@ -1,9 +1,24 @@
-
-import pygame
-from pygame.locals import *
+# BaseParaJogo - Biblioteca de desenvolvimento de jogos baseado no PyGame
+# Copyright (C) 2023  Oberlan Romão
+"""
+BaseParaJogo é um conjunto de funções, baseado no PyGame, usadas para o 
+desenvolvimento de jogos na disciplina de "Introdução à Programação", que
+segue o paradigma estruturado.  
+Por ser uma disciplina introdutória, o objetivo desta biblioteca é 
+facilitar a implementação de jogos pelos alunos, não sendo necessário 
+conhecimento de Orientação à Objetos.
+Para usar a biblioteca certifique-se que o pygame está intalado.
+"""
+try:
+    import pygame
+    from pygame.locals import *
+except:
+    print("\033[1;31mBiblioteca PyGame não instalada\033[00m")
+    raise SystemExit
 from typing import Tuple
 import os
 
+#Variáveis globais
 __tela = None
 __clock = None
 __listaFiguras = []
@@ -15,17 +30,21 @@ __numSomCarregado = 0
 __corFundo = tuple()
 __tempoInicio = 0
 
-class Vetor2D:
-    def __init__(self, x: int = 0, y: int = 0) -> None:
-        self.x = x
-        self.y = y 
-    
 def criaJanela(largura: int, altura: int, titulo: str, corFundo: pygame.Color = (0, 0, 0), icone: str = None):
+    """Inicia o PyGame e cria a janela do jogo
+
+    Parâmetros:
+        - largura (int): Lagura da janela
+        - altura (int): Altura da janela
+        - titulo (str): Título da janela
+        - corFundo (pygame.Color, opcional): Cor do fundo da janela. Valor padrão: (0, 0, 0)
+        - icone (str, opcional): Arquivo de imagem para ser usando como ícone. Valor padrão: None
+    """
     global __tela, __clock, __corFundo
+    #Inicia o PyGame
     pygame.init()
     __corFundo = corFundo
     __tela = pygame.display.set_mode((largura, altura))
-    
     if icone != None:
         try:
             icone = f"{os.getcwd()}/{icone}"
@@ -44,37 +63,78 @@ def criaJanela(largura: int, altura: int, titulo: str, corFundo: pygame.Color = 
     __tempoInicio = pygame.time.get_ticks()
 
 def finalizaJogo():
+    """Finaliza as funções do PyGame
+    """
     pygame.mixer.music.stop()
     pygame.mixer.quit()
     pygame.quit()
     exit()
 
 def tempoExecutandoJogo() -> int:
+    """Retorna o tempo de execução do jogo em milissegundos
+
+    Retorno:
+        int: tempo de execução do jogo
+    """
     return pygame.time.get_ticks() - __tempoInicio
 
+def tempoAtual() -> int:
+    """Retorna o tempo em milissegundos
+
+    Exemplo de uso:
+        inicio = tempoAtual()
+        #Sequencia de comandos
+        fim = tempoAtual()
+        print(f"Tempo gasto: {fim - inicio}ms")
+
+    Retorno:
+        int: retorna o tempo em milissegundos
+    """
+    return pygame.time.get_ticks()
+
 def atualizaTelaJogo() -> None:
+    """Atualiza a janela do jogo, redesenhando todos os objetos. 
+    Também verifica se a janela foi fechada. 
+    """
     global __clock
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             finalizaJogo()
 
     pygame.display.update()
-    __clock.tick(60)  # limits FPS to 60
+    __clock.tick(60)  # Frames por segundos
 
 def limpaTela() -> None:
+    """Apaga todas as "informações" da tela 
+    """
     atualizaCorFundo(__corFundo)
 
 def atualizaCorFundo(cor: pygame.Color) -> None:
+    """Atualiza a cor de fundo da tela
+
+    Parâmetros:
+        - cor (pygame.Color): Cor do fundo da tela
+    """
     global __corFundo
     __corFundo = cor
     __tela.fill(cor)
 
 
-def desenhaTexto(mensagem: str, x: int, y: int, tamFonte: int, cor: pygame.Color = "black", nomeFonte: str = None) -> None:
-    if nomeFonte:
-        nomeFonte = f"{os.getcwd()}/{nomeFonte}"
-    fonte = pygame.font.Font(nomeFonte, tamFonte)
-    texto = fonte.render(mensagem, True, cor)
+def desenhaTexto(texto: str, x: int, y: int, tamFonte: int, cor: pygame.Color = "black", arquivoFonte: str = None) -> None:
+    """Escreve texto na tela. Para facilitar, o texto é centralizado na posição (x, y) passados como parâmetros. 
+
+    Parâmetros:
+        - texto (str): Texto a ser escrito na tela
+        - x (int): Posição x na tela que o texto deve ser escrito
+        - y (int): Posição y na tela que o texto deve ser escrito
+        - tamFonte (int): Tamanho da fonte do texto
+        - cor (pygame.Color, optional): Cor da fonte. Valor padrão: "black".
+        - arquivoFonte (str, optional): Arquivo com a fonte a ser usada. Valor padrão: None.
+    """
+    if arquivoFonte:
+        arquivoFonte = f"{os.getcwd()}/{arquivoFonte}"
+    fonte = pygame.font.Font(arquivoFonte, tamFonte)
+    texto = fonte.render(texto, True, cor)
     textoPos = texto.get_rect()
     textoPos.centerx = x
     textoPos.centery = y
@@ -82,10 +142,30 @@ def desenhaTexto(mensagem: str, x: int, y: int, tamFonte: int, cor: pygame.Color
 
 
 def desenhaRetangulo(x: int, y: int, largura: int, altura: int, corFundo: pygame.Color) -> None:
+    """Desenha um retângulo colorido na tela
+
+    Parâmetros:
+        - x (int): posição x do retângulo
+        - y (int): posição y do retângulo
+        - largura (int): largura do retângulo
+        - altura (int): largura do retângulo
+        - corFundo (pygame.Color): cor do retângulo
+    """
     pygame.draw.rect(__tela, corFundo, (x, y, largura, altura))
 
 
 def carregaFigura(nomeArquivo: str, tamanho: tuple = (0, 0)) -> int:
+    """Responsável por carregar e armazenar uma imagem a partir de um arquivo
+
+    Parâmetros:
+        - nomeArquivo (str): arquivo com a imagem
+        - tamanho (tuple, opcional): tamanho que a imagem deve ser desenhada. Este parâmetro é usado caso \
+                                   seja necessário redimensionar a imagem. \
+                                   Valor padrão (0, 0) indicando que deve ser mantida as dimensões originais da figura.
+
+    Returno:
+        int: identificador da figura
+    """
     global __numFiguraCarregada
     nomeArquivoCompleto = f"{os.getcwd()}/{nomeArquivo}"
     try:
@@ -107,15 +187,38 @@ def carregaFigura(nomeArquivo: str, tamanho: tuple = (0, 0)) -> int:
 
 
 def desenhaFigura(numFigura: int, x: int, y: int) -> None:
+    """Desenha imagem na posição (x, y) na tela
+
+    Parâmetros:
+        - numFigura (int): identificador da figura
+        - x (int): posição x que a figura será desenhada
+        - y (int): posição y que a figura será desenhada
+    """
     if numFigura <= 0 or numFigura > __numFiguraCarregada:
         print("ERRO - Número da figura inválido!")
         return  
     __tela.blit(__listaFiguras[numFigura - 1], (x, y))
 
 def teclaPressionada(tecla: int) -> bool:
+    """Verifica se a tecla foi pressionada
+
+    Parâmetro:
+        - tecla (int): tecla que se deseja verificar se foi pressionada
+
+    Returno:
+        bool: True se a tecla foi pressionada e False, caso contrário
+    """
     return pygame.key.get_pressed()[tecla]
 
-def teclaLiberada(tecla) -> bool:
+def teclaLiberada(tecla: int) -> bool:
+    """Verifica se a tecla foi liberada
+
+    Parâmetro:
+        - tecla (int): tecla que se deseja verificar se foi liberada
+
+    Returno:
+        bool: True se a tecla foi liberada e False, caso contrário
+    """
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             finalizaJogo()
@@ -124,10 +227,23 @@ def teclaLiberada(tecla) -> bool:
     return False
 
 def posicaoCursorMouse() -> Tuple[int, int]:
+    """Posição do curso do mouse na janela
+
+    Returno:
+        Tuple[int, int]: posição (x, y) que do curso na janela
+    """
     return pygame.mouse.get_pos()
 
 
 def botaoMousePressionado() -> Tuple[bool, int, Tuple[int, int]]:
+    """Verifica se algum botão do mouse foi pressionado
+
+    Returno:
+        Tuple[bool, int, Tuple[int, int]]: retorna três informações: 
+            (1) se algum botão foi pressionado; 
+            (2) identificador do botão pressionado e; 
+            (3) posição (x, y) onde o botão foi pressionado na janela.
+    """
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             finalizaJogo()
@@ -136,6 +252,14 @@ def botaoMousePressionado() -> Tuple[bool, int, Tuple[int, int]]:
     return False, -1, (-1, -1)
 
 def carregaSom(nomeArquivo: str) -> int:
+    """Carrega som a partir de um arquivo de áudio. 
+
+    Parâmetro:
+        - nomeArquivo (str): arquivo com o som
+
+    Returno:
+        int: identificador do som
+    """
     global __numSomCarregado
     nomeArquivoCompleto = f"{os.getcwd()}/{nomeArquivo}"
     try:
@@ -149,17 +273,28 @@ def carregaSom(nomeArquivo: str) -> int:
     return __numSomCarregado
 
 def tocaSom(numSom: int) -> None:
+    """Toca um som a partir do identificador
+
+    Parâmetro:
+        numSom (int): identificador do som a ser tocado
+    """
     if numSom <= 0 or numSom > __numSomCarregado:
         print("ERRO - Número do som inválido!")
         return
     __listaSons[numSom - 1].play()
 
 def carregaMusica(nomeArquivo: str) -> int:
+    """Carrega música a partir de um arquivo. 
+
+    Parâmetro:
+        nomeArquivo (str): arquivo com a música
+
+    Returno:
+        int: identificador da música
+    """
     global __numMusicaCarregada
     nomeArquivoCompleto = f"{os.getcwd()}/{nomeArquivo}"
     if os.path.isfile(nomeArquivoCompleto):
-        # pygame.mixer.music.load(nomeArquivoCompleto)
-        # pygame.mixer.music.play()
         __listaMusicas.append(nomeArquivoCompleto)
         __numMusicaCarregada += 1
     else:
@@ -167,7 +302,13 @@ def carregaMusica(nomeArquivo: str) -> int:
         raise SystemExit
     return __numMusicaCarregada
     
-def iniciaMusica(numMusica: int, loop: bool = True) -> None:
+def tocaMusica(numMusica: int, loop: bool = True) -> None:
+    """Inicia a execução da música de acordo com o identificador
+
+    Parâmetros:
+        - numMusica (int): identificador da música
+        - loop (bool, opcional): True se a música deve ser tocada em loop e False, caso contrário. Valor padrão: True.
+    """
     if numMusica <= 0 or numMusica > __numMusicaCarregada:
         print("ERRO - Número da música invalido!")
         return
@@ -178,6 +319,8 @@ def iniciaMusica(numMusica: int, loop: bool = True) -> None:
         pygame.mixer.music.play()
 
 def paraMusica() -> None:
+    """Para a execução a música que está tocando
+    """
     pygame.mixer.music.stop()
 
 
