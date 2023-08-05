@@ -1,13 +1,13 @@
 # BaseParaJogo - Biblioteca de desenvolvimento de jogos baseado no PyGame
 # Copyright (C) 2023  Oberlan Romão
 """
-BaseParaJogo é um conjunto de funções, baseado no PyGame, usadas para o 
+BaseParaJogo é um conjunto de funções, baseado no PyGame, usado para o 
 desenvolvimento de jogos na disciplina de "Introdução à Programação", que
 segue o paradigma estruturado.  
 Por ser uma disciplina introdutória, o objetivo desta biblioteca é 
 facilitar a implementação de jogos pelos alunos, não sendo necessário 
 conhecimento de Orientação à Objetos.
-Para usar a biblioteca certifique-se que o pygame está intalado.
+Para usar a biblioteca, certifique-se que o pygame está intalado.
 """
 try:
     import pygame
@@ -21,8 +21,8 @@ import os
 #Variáveis globais
 __tela = None
 __clock = None
-__listaFiguras = []
-__numFiguraCarregada = 0
+__listaImagens = []
+__numImagemCarregada = 0
 __listaMusicas = []
 __numMusicaCarregada = 0
 __listaSons = []
@@ -154,7 +154,7 @@ def desenhaRetangulo(x: int, y: int, largura: int, altura: int, corFundo: pygame
     pygame.draw.rect(__tela, corFundo, (x, y, largura, altura))
 
 
-def carregaFigura(nomeArquivo: str, tamanho: tuple = (0, 0)) -> int:
+def carregaImagem(nomeArquivo: str, tamanho: tuple = (0, 0)) -> int:
     """Responsável por carregar e armazenar uma imagem a partir de um arquivo
 
     Parâmetros:
@@ -164,9 +164,9 @@ def carregaFigura(nomeArquivo: str, tamanho: tuple = (0, 0)) -> int:
                                    Valor padrão (0, 0) indicando que deve ser mantida as dimensões originais da figura.
 
     Returno:
-        int: identificador da figura
+        int: identificador da imagem
     """
-    global __numFiguraCarregada
+    global __numImagemCarregada
     nomeArquivoCompleto = f"{os.getcwd()}/{nomeArquivo}"
     try:
         imagem = pygame.image.load(nomeArquivoCompleto)
@@ -178,15 +178,15 @@ def carregaFigura(nomeArquivo: str, tamanho: tuple = (0, 0)) -> int:
             tamanho = imagem.get_size()
         if tamanho != (0, 0):
             imagem = pygame.transform.scale(imagem, tamanho)
-        __listaFiguras.append(imagem)
-        __numFiguraCarregada += 1
+        __listaImagens.append(imagem)
+        __numImagemCarregada += 1
     except FileNotFoundError:
         print(f"ERRO: Não foi possível carregar o arquivo '{nomeArquivoCompleto}'")
         raise SystemExit
-    return __numFiguraCarregada
+    return __numImagemCarregada
 
 
-def desenhaFigura(numFigura: int, x: int, y: int) -> None:
+def desenhaImagem(idImagem: int, x: int, y: int) -> None:
     """Desenha imagem na posição (x, y) na tela
 
     Parâmetros:
@@ -194,10 +194,10 @@ def desenhaFigura(numFigura: int, x: int, y: int) -> None:
         - x (int): posição x que a figura será desenhada
         - y (int): posição y que a figura será desenhada
     """
-    if numFigura <= 0 or numFigura > __numFiguraCarregada:
+    if idImagem <= 0 or idImagem > __numImagemCarregada:
         print("ERRO - Número da figura inválido!")
         return  
-    __tela.blit(__listaFiguras[numFigura - 1], (x, y))
+    __tela.blit(__listaImagens[idImagem - 1], (x, y))
 
 def teclaPressionada(tecla: int) -> bool:
     """Verifica se a tecla foi pressionada
