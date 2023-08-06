@@ -1,4 +1,4 @@
-#Exemplo 8: Exemplo de animação 
+#Exemplo 8: Exemplo de animação e criação de um mapa a partir de uma lista
 
 from BaseParaJogo import *
 

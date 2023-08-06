@@ -1,4 +1,4 @@
-#Exemplo 12: exemplo de utilização da função 'botaoMousePressionado' em 
+#Exemplo 12: Exemplo de utilização da função 'botaoMousePressionado' em 
 # que uma nave segue os movimentos do cursor do mouse.
 # O disparo da nave é feito pelo clique do mouse.
 

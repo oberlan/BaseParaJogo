@@ -1,4 +1,4 @@
-#Exemplo 11: exemplo de utilização da função 'botaoMousePressionado'
+#Exemplo 11: Exemplo de utilização da função 'botaoMousePressionado'
 
 from BaseParaJogo import *
 

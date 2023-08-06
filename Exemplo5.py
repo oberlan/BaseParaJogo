@@ -1,4 +1,4 @@
-#Exemplo 5: Executa som
+#Exemplo 5: Executa som e música
 
 from BaseParaJogo import *
 
