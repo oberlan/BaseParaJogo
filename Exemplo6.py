@@ -8,20 +8,20 @@ ALTURAJANELA = 300
 ICONE = "Recursos/Imagens/python-logo.png"
 
 def main():
-    criaJanela(LARGURAJANELA, ALTURAJANELA, "Sexto Exemplo", CORFUNDOJANELA, ICONE)
+    criaJanela(LARGURAJANELA, ALTURAJANELA, "Introdução à Programação", CORFUNDOJANELA, ICONE)
     
-    jogador_baixo = [carregaFigura("Recursos/Imagens/jogador_baixo1.png", (32, 32)),
-                     carregaFigura("Recursos/Imagens/jogador_baixo2.png", (32, 32)),
-                     carregaFigura("Recursos/Imagens/jogador_baixo3.png", (32, 32))]
-    jogador_cima = [carregaFigura("Recursos/Imagens/jogador_cima1.png", (32, 32)),
-                    carregaFigura("Recursos/Imagens/jogador_cima2.png", (32, 32)),
-                    carregaFigura("Recursos/Imagens/jogador_cima3.png", (32, 32))]
-    jogador_esquerda = [carregaFigura("Recursos/Imagens/jogador_esquerda1.png", (32, 32)),
-                        carregaFigura("Recursos/Imagens/jogador_esquerda2.png", (32, 32)),
-                        carregaFigura("Recursos/Imagens/jogador_esquerda3.png", (32, 32))]
-    jogador_direita = [carregaFigura("Recursos/Imagens/jogador_direita1.png", (32, 32)),
-                       carregaFigura("Recursos/Imagens/jogador_direita2.png", (32, 32)),
-                       carregaFigura("Recursos/Imagens/jogador_direita3.png", (32, 32))]
+    jogador_baixo = [carregaImagem("Recursos/Imagens/jogador_baixo1.png", (32, 32)),
+                     carregaImagem("Recursos/Imagens/jogador_baixo2.png", (32, 32)),
+                     carregaImagem("Recursos/Imagens/jogador_baixo3.png", (32, 32))]
+    jogador_cima = [carregaImagem("Recursos/Imagens/jogador_cima1.png", (32, 32)),
+                    carregaImagem("Recursos/Imagens/jogador_cima2.png", (32, 32)),
+                    carregaImagem("Recursos/Imagens/jogador_cima3.png", (32, 32))]
+    jogador_esquerda = [carregaImagem("Recursos/Imagens/jogador_esquerda1.png", (32, 32)),
+                        carregaImagem("Recursos/Imagens/jogador_esquerda2.png", (32, 32)),
+                        carregaImagem("Recursos/Imagens/jogador_esquerda3.png", (32, 32))]
+    jogador_direita = [carregaImagem("Recursos/Imagens/jogador_direita1.png", (32, 32)),
+                       carregaImagem("Recursos/Imagens/jogador_direita2.png", (32, 32)),
+                       carregaImagem("Recursos/Imagens/jogador_direita3.png", (32, 32))]
     imagemJogador = jogador_baixo
     frameJogador = 0
 
@@ -59,9 +59,9 @@ def main():
             frameJogador += velocidadeAnimacaoJogador
             if frameJogador >= 3:
                 frameJogador = 0
-            desenhaFigura(imagemJogador[int(frameJogador)], xJogador, yJogador)
+            desenhaImagem(imagemJogador[int(frameJogador)], xJogador, yJogador)
         else:
-            desenhaFigura(imagemJogador[0], xJogador, yJogador)
+            desenhaImagem(imagemJogador[0], xJogador, yJogador)
 
         #Atualiza os objetos na janela
         atualizaTelaJogo()

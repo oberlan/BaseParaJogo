@@ -1,6 +1,6 @@
-#Exemplo 9: Exemplo de utilização da função 'teclaLiberada' que 
-# a nave é movimenta pelas setinhas do teclado e um disparo é 
-# feito sempre que a tecla 'espaço' é liberada.
+#Exemplo 12: exemplo de utilização da função 'botaoMousePressionado' em 
+# que uma nave segue os movimentos do cursor do mouse.
+# O disparo da nave é feito pelo clique do mouse.
 
 from BaseParaJogo import *
 
@@ -8,7 +8,6 @@ CORFUNDOJANELA = (94, 63, 107)
 LARGURAJANELA = 400
 ALTURAJANELA = 600
 ICONE = "Recursos/Imagens/nave.png"
-
 
 def main():
     criaJanela(LARGURAJANELA, ALTURAJANELA, "Introdução à Programação", CORFUNDOJANELA, ICONE)
@@ -22,29 +21,26 @@ def main():
     xNave = LARGURAJANELA // 2 - 25
     yNave = ALTURAJANELA - 45
     while True:
-
-        if teclaPressionada(K_ESCAPE): 
+        #Verifica se a tecla ESC foi precionada
+        if teclaPressionada(K_ESCAPE):
             break
-
-        if teclaLiberada(K_SPACE):
-            disparos.append([xNave+21, yNave-15])
-            tocaSom(somDisparo)
 
         #Limpa a janela
         limpaTela()
 
-        #Verifica se uma das teclas foi precionada
-        #Se sim, atualiza a posição da nave
-        if teclaPressionada(K_UP):
-            yNave -= 4
-        elif teclaPressionada(K_DOWN):
-            yNave += 4
-        elif teclaPressionada(K_LEFT):
-            xNave -= 4
-        elif teclaPressionada(K_RIGHT):
-            xNave += 4
-        elif teclaPressionada(K_p):
-            paraMusica()
+        #Obtem as informções do clique do mouse
+        botaoPressionado, botao, posicao = botaoMousePressionado()
+        if botaoPressionado and botao == 1:
+            #Inclui um disparo na lista
+            disparos.append([posicao[0]-5, yNave-15])
+            print(f"Número de disparos: {len(disparos)}")
+            tocaSom(somDisparo)
+
+        xMouse, yMouse = posicaoCursorMouse()
+        if xMouse + 50 <= LARGURAJANELA:
+            xNave = xMouse - 25
+        if yMouse + 38 <= ALTURAJANELA:
+            yNave = yMouse - 19
 
         #Desenha os disparos e atualiza a posição de cada um
         for i in range(len(disparos)):
@@ -58,6 +54,5 @@ def main():
         atualizaTelaJogo()
 
     finalizaJogo()
-
 
 main()

@@ -7,7 +7,7 @@ LARGURAJANELA = 930
 ALTURAJANELA = 600
 
 def main():
-    criaJanela(LARGURAJANELA, ALTURAJANELA, "Segundo Exemplo", CORFUNDOJANELA)
+    criaJanela(LARGURAJANELA, ALTURAJANELA, "Introdução à Programação", CORFUNDOJANELA)
     xRetangulo = 0
     yRetangulo = 300
     while True:

@@ -8,8 +8,8 @@ ALTURAJANELA = 600
 ICONE = "Recursos/Imagens/python-logo.png"
 
 def main():
-    criaJanela(LARGURAJANELA, ALTURAJANELA, "Quarto Exemplo", CORFUNDOJANELA, ICONE)
-    imagem = carregaFigura("Recursos/Imagens/python-logo.png")
+    criaJanela(LARGURAJANELA, ALTURAJANELA, "Introdução à Programação", CORFUNDOJANELA, ICONE)
+    imagem = carregaImagem("Recursos/Imagens/python-logo.png")
     xImagem = 0
     yImagem = 300
     while True:
@@ -32,7 +32,7 @@ def main():
             xImagem += 10
 
         #Desenha imagem
-        desenhaFigura(imagem, xImagem, yImagem)
+        desenhaImagem(imagem, xImagem, yImagem)
 
         #Atualiza os objetos na janela
         atualizaTelaJogo()

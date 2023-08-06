@@ -3,7 +3,7 @@
 from BaseParaJogo import *
 
 def main():
-    criaJanela(930, 600, "Primeiro Exemplo", (255, 255, 255))
+    criaJanela(930, 600, "Introdução à Programação", (255, 255, 255))
 
     while True:
         #Verifica se a tecla ESC foi precionada

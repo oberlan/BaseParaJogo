@@ -82,9 +82,9 @@ def tempoAtual() -> int:
     """Retorna o tempo em milissegundos
 
     Exemplo de uso:
-        inicio = tempoAtual()
-        #Sequencia de comandos
-        fim = tempoAtual()
+        inicio = tempoAtual()\n
+        #Sequencia de comandos\n
+        fim = tempoAtual()\n
         print(f"Tempo gasto: {fim - inicio}ms")
 
     Retorno:
@@ -93,8 +93,8 @@ def tempoAtual() -> int:
     return pygame.time.get_ticks()
 
 def atualizaTelaJogo() -> None:
-    """Atualiza a janela do jogo, redesenhando todos os objetos. 
-    Também verifica se a janela foi fechada. 
+    """Atualiza a janela do jogo, redesenhando todos os objetos, e verifica 
+    se o botão fechar foi clicado. 
     """
     global __clock
     for evento in pygame.event.get():
@@ -112,7 +112,7 @@ def limpaTela() -> None:
 def atualizaCorFundo(cor: pygame.Color) -> None:
     """Atualiza a cor de fundo da tela
 
-    Parâmetros:
+    Parâmetro:
         - cor (pygame.Color): Cor do fundo da tela
     """
     global __corFundo
@@ -161,7 +161,7 @@ def carregaImagem(nomeArquivo: str, tamanho: tuple = (0, 0)) -> int:
         - nomeArquivo (str): arquivo com a imagem
         - tamanho (tuple, opcional): tamanho que a imagem deve ser desenhada. Este parâmetro é usado caso \
                                    seja necessário redimensionar a imagem. \
-                                   Valor padrão (0, 0) indicando que deve ser mantida as dimensões originais da figura.
+                                   Valor padrão (0, 0) indicando que deve ser mantida as dimensões originais da imagem.
 
     Returno:
         int: identificador da imagem
@@ -190,9 +190,9 @@ def desenhaImagem(idImagem: int, x: int, y: int) -> None:
     """Desenha imagem na posição (x, y) na tela
 
     Parâmetros:
-        - numFigura (int): identificador da figura
-        - x (int): posição x que a figura será desenhada
-        - y (int): posição y que a figura será desenhada
+        - idImagem (int): identificador da imagem
+        - x (int): posição x que a imagem será desenhada
+        - y (int): posição y que a imagem será desenhada
     """
     if idImagem <= 0 or idImagem > __numImagemCarregada:
         print("ERRO - Número da figura inválido!")
@@ -239,10 +239,10 @@ def botaoMousePressionado() -> Tuple[bool, int, Tuple[int, int]]:
     """Verifica se algum botão do mouse foi pressionado
 
     Returno:
-        Tuple[bool, int, Tuple[int, int]]: retorna três informações: 
-            (1) se algum botão foi pressionado; 
-            (2) identificador do botão pressionado e; 
-            (3) posição (x, y) onde o botão foi pressionado na janela.
+        Tuple[bool, int, Tuple[int, int]]: retorna três informações: \n
+            1. se algum botão foi pressionado;
+            2. identificador do botão pressionado e;
+            3. posição (x, y) onde o botão foi pressionado na janela.
     """
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:

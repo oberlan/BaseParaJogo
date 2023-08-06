@@ -8,11 +8,11 @@ ALTURAJANELA = 600
 ICONE = "Recursos/Imagens/python-logo.png"
 
 def main():
-    criaJanela(LARGURAJANELA, ALTURAJANELA, "Quinto Exemplo", CORFUNDOJANELA, ICONE)
-    imagem = carregaFigura("Recursos/Imagens/nave.png")
+    criaJanela(LARGURAJANELA, ALTURAJANELA, "Introdução à Programação", CORFUNDOJANELA, ICONE)
+    imagem = carregaImagem("Recursos/Imagens/nave.png")
     musica = carregaMusica("Recursos/Sons/magic_space.mp3")
     som = carregaSom("Recursos/Sons/laser.ogg")
-    iniciaMusica(musica)
+    tocaMusica(musica)
     xImagem = 0
     yImagem = 300
     while True:
@@ -38,7 +38,7 @@ def main():
             paraMusica()
 
         #Desenha imagem
-        desenhaFigura(imagem, xImagem, yImagem)
+        desenhaImagem(imagem, xImagem, yImagem)
 
         #Atualiza os objetos na janela
         atualizaTelaJogo()
