@@ -29,6 +29,7 @@ __listaSons = []
 __numSomCarregado = 0
 __corFundo = tuple()
 __tempoInicio = 0
+__eventos = []
 
 def criaJanela(largura: int, altura: int, titulo: str, corFundo: pygame.Color = (0, 0, 0), icone: str = None):
     """Inicia o PyGame e cria a janela do jogo
@@ -93,21 +94,24 @@ def tempoAtual() -> int:
     return pygame.time.get_ticks()
 
 def atualizaTelaJogo() -> None:
-    """Atualiza a janela do jogo, redesenhando todos os objetos, e verifica 
-    se o botão fechar foi clicado. 
+    """Atualiza a janela do jogo, redesenhando todos os objetos.
+     Função também responsável por capturar os eventos ocorridos na janela. 
     """
-    global __clock
-    for evento in pygame.event.get():
+    global __clock, __eventos
+    __eventos = pygame.event.get()
+    for evento in __eventos:# pygame.event.get():
         if evento.type == pygame.QUIT:
             finalizaJogo()
 
     pygame.display.update()
     __clock.tick(60)  # Frames por segundos
 
+
 def limpaTela() -> None:
-    """Apaga todas as "informações" da tela 
+    """Apaga todas as "informações" da tela
     """
     atualizaCorFundo(__corFundo)
+    
 
 def atualizaCorFundo(cor: pygame.Color) -> None:
     """Atualiza a cor de fundo da tela
@@ -219,7 +223,7 @@ def teclaLiberada(tecla: int) -> bool:
     Returno:
         bool: True se a tecla foi liberada e False, caso contrário
     """
-    for evento in pygame.event.get():
+    for evento in __eventos: # pygame.event.get():
         if evento.type == pygame.QUIT:
             finalizaJogo()
         if evento.type == KEYUP and evento.key == tecla:
@@ -244,7 +248,7 @@ def botaoMousePressionado() -> Tuple[bool, int, Tuple[int, int]]:
             2. identificador do botão pressionado e;
             3. posição (x, y) onde o botão foi pressionado na janela.
     """
-    for evento in pygame.event.get():
+    for evento in __eventos: # pygame.event.get():
         if evento.type == pygame.QUIT:
             finalizaJogo()
         if evento.type == MOUSEBUTTONDOWN:
