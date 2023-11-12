@@ -49,12 +49,12 @@ def criaJanela(largura: int, altura: int, titulo: str, corFundo: pygame.Color = 
     if icone != None:
         try:
             icone = f"{os.getcwd()}/{icone}"
-        except FileNotFoundError:
+            pygame.display.set_caption(titulo, icone)
+            imgIcone = pygame.image.load(icone)
+            pygame.display.set_icon(imgIcone)
+        except:
             print(f"ERRO: Não foi possível carregar o arquivo '{icone}'")
             raise SystemExit
-        pygame.display.set_caption(titulo, icone)
-        imgIcone = pygame.image.load(icone)
-        pygame.display.set_icon(imgIcone)
     else:
         pygame.display.set_caption(titulo)
     
