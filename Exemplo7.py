@@ -44,7 +44,7 @@ def main():
         limpaTela()
 
         #Verifica se uma das teclas foi precionada
-        #Se sim, atualiza a posição do 
+        #Se sim, atualiza a posição do personagem
         if teclaPressionada(K_UP):
             direcao = CIMA
             imagemJogador = jogador_cima
